@@ -1,0 +1,24 @@
+name: Run Forex Automation Script Daily
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # Runs daily at 10 AM UTC
+  workflow_dispatch: # Allows manual run
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install moviepy gtts
+
+      - name: Run Script
+        run: python forex_automation.py
